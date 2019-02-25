@@ -1,0 +1,8 @@
+```{r}
+path<-"e:/Source Code/Pagina Personal/Post-1-Data Manipulation Comparative SQL_R_Python"
+airport <- read.csv(paste(path , "/data/airports.csv",sep="")) 
+airport_frequencies <- read.csv(paste(path , "/data/airport-frequencies.csv",sep="")) 
+runways <- read.csv(paste(path , "/data/runways.csv",sep="")) 
+
+```
+
