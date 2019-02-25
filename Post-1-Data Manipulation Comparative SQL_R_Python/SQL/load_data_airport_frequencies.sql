@@ -1,0 +1,2 @@
+COPY AIRPORT_FREQUENCIES(id,airport_ref,airport_ident,type,description,frequency_mhz)
+FROM 'e:\Source Code\Pagina Personal\Post-1-Data Manipulation Comparative SQL_R_Python\Data\airport-frequencies.csv' DELIMITER ',' CSV HEADER;
