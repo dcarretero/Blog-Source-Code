@@ -1,2 +1,2 @@
 COPY AIRPORTS(id,ident,type,name,latitude_deg,longitude_deg,elevation_ft,continent,iso_country,iso_region,municipality,scheduled_service,gps_code,iata_code,local_code,home_link,wikipedia_link,keywords)
-FROM 'e:\Source Code\Pagina Personal\Post-1-Data Manipulation Comparative SQL_R_Python\Data\airports.csv' DELIMITER ',' CSV HEADER;
+FROM 'e:\Source Code\Pagina Personal\Post-Data Manipulation Comparative SQL_R_Python\Data\airports.csv' DELIMITER ',' CSV HEADER;
