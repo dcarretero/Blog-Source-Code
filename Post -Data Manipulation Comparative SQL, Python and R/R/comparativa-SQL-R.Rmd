@@ -1,10 +1,34 @@
 ## LOADING DATA INTO DATAFRAMES
 
 ```{r}
-path_data_folder<-"c:/tmp"
-airport <- read.csv(paste(path_data_folder , "/data/airports.csv",sep="")) 
-airport_frequencies <- read.csv(paste(path_data_folder , "/data/airport-frequencies.csv",sep="")) 
-runways <- read.csv(paste(path_data_folder , "/data/runways.csv",sep="")) 
+library(dplyr)
 
+path_data_folder<-"c:/tmp"
+airports <- read.csv(paste(path_data_folder , "/data/airports.csv",sep="")) 
+airport_frequencies <- read.csv(paste(path_data_folder , "/data/airport-frequencies.csv",sep="")) runways <- read.csv(paste(path_data_folder , "/data/runways.csv",sep="")) 
+
+```
+
+## SELECT...WHERE
+
+#### 1.1) Show all records
+```{r}
+airports
+```
+
+#### 1.2) Show only three records
+
+```{r}
+head(airports,3)
+```
+
+#### 1.3) Show id filtered by ident='KLAX'
+```{r}
+airports %>% filter(ident == "KLAX")%>%select(id)
+```
+
+#### 1.4) Show distinct types 
+```{r}
+airports%>%distinct(type)
 ```
 

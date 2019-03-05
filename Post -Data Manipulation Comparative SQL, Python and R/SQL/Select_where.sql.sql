@@ -1,8 +1,8 @@
--- Show all the records
+--1.1) Show all the records
 select * from airports;
--- Show three records
+--1.2) Show three records
 select * from airports limit 3;
--- Show records filtered by ident='KLAX'
+--1.3) Show records filtered by ident='KLAX'
 select id from airports where ident = 'KLAX';	
--- Show distinct types 
+--1.4) Show distinct types 
 select distinct type from airports;	
