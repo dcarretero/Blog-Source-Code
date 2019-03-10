@@ -5,7 +5,7 @@ select
 from
 	airports
 where
-	ident = 'KLAX'
+	ident in ('KLAX','KLGB')
 union 
 select
 	name,
@@ -23,7 +23,7 @@ select
 from
 	airports
 where
-	ident = 'KLAX'
+	ident in ('KLAX','KLGB')
 union all select
 	name,
 	municipality

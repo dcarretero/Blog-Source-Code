@@ -15,4 +15,4 @@ select
 from
 	airports
 where
-	ident  IN ('KLAX', 'KLGB')
+	ident  IN ('KMAN')

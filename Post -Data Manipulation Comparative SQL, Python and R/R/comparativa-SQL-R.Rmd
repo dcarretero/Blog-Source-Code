@@ -9,7 +9,7 @@ airport_frequencies <- read.csv(paste(path_data_folder , "/data/airport-frequenc
 
 ```
 
-## SELECT...WHERE
+## 1) SELECT...WHERE
 
 #### 1.1) Show all records
 ```{r}
@@ -31,4 +31,115 @@ airports %>% filter(ident == "KLAX")%>%select(id)
 ```{r}
 airports%>%distinct(type)
 ```
+
+## 2) SELECT WITH MULTIPLE CONDITIONS
+
+#### 2.1) Multiple condition, first example
+```{r}
+airports%>%filter(iso_region==c('US-CA')& type=='seaplane_base' )
+```
+#### 2.2) Multiple condition, second example
+```{r}
+airports%>%filter(iso_region==c('US-CA')& type=='seaplane_base' )%>%select(c('ident', 'name', 'municipality'))
+```
+
+## 3)ORDER BY
+
+#### 3.1) Order by asc
+
+```{r}
+airport_frequencies%>%filter(airport_ident=='KLAX')%>%arrange(type)
+```
+
+#### 3.2) Order by desc
+
+```{r}
+airport_frequencies%>%filter(airport_ident=='KLAX')%>%arrange(desc(type))
+```
+
+## 4) IN...NOT IN
+
+#### 4.1) IN several values
+```{r}
+airports%>%filter(type==c('heliport', 'balloonport'))
+```
+
+####4.2) NOT IN several values
+
+```{r}
+airports%>%filter(type!=c('heliport', 'balloonport'))
+```
+
+## 5) GROUP BY
+
+####5.1) Group by with count and order by ISO_COUNTRY,TYPE
+
+```{r}
+airports%>%group_by(iso_country,type)%>% summarise(number = n())
+```
+
+####5.2) Group by with count and order by ISO_COUNTRY,COUNT
+
+```{r}
+airports%>%group_by(iso_country,type)%>% summarise(number = n())%>%arrange(iso_country,desc(number))
+```
+
+# 6) LIMIT
+
+####6.1) Top 10 records
+```{r}
+airports%>%group_by(iso_country)%>% summarise(number = n())%>%arrange(desc(number))%>%head(n=10)
+```
+####6.2) Records with an offset of 10
+```{r}
+airports%>%group_by(iso_country)%>% summarise(number = n())%>%arrange(desc(number))%>%head(20)%>%tail(10) 
+
+```
+
+# 7) HAVING
+
+#### 7.1) Types with count over 1000
+```{r}
+airports%>%filter(iso_country=='US')%>%group_by(type)%>% summarise(number = n())%>%arrange(desc(number))%>%filter(number>1000)
+```
+
+####8.2) Min, masx, mean and median
+```{r}
+runways%>%summarise(max = max(length_ft,na.rm=TRUE),min=min(length_ft,na.rm=TRUE),mean=mean(length_ft,na.rm=TRUE),median=median(length_ft,na.rm=TRUE))
+```
+
+
+#9) JOIN (INNER, LEFT, RIGHT AND OUTER)
+
+####9.1)INNER JOIN BY AIRPORT REF
+
+```{r}
+airport_frequencies%>%inner_join(airports,by=c("airport_ref"="id"))%>%select(airport_ident,type.x,description,frequency_mhz)
+```
+
+#10) UNION AND UNION ALL
+
+####10.1) UNION ALL
+
+```{r}
+airports_df1<-airports%>%filter(ident==c('KMAN','KLAX','KLGB'))
+airports_df2<-airports%>%filter(ident==c('KMAN','KLAX'))
+airports_union_all<-bind_rows(airports_df1, airports_df2)
+```
+####10.2) UNION
+```{r}
+airports_union<-airports_union_all[!duplicated(airports_union_all),]
+```
+
+#11) EXCEPT
+
+####11.1) EXCEPT BETWEEN TWO DATAFRAMES
+```{r}
+airports_except<-airports_df1[!(airports_df1$id %in% airports_df2$id ), ]
+```
+
+```{r}
+airports_df1$id %in% airports_df2$id
+```
+
 
