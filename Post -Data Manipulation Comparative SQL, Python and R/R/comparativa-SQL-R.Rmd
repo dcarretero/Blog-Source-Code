@@ -4,8 +4,11 @@
 library(dplyr)
 
 path_data_folder<-"c:/tmp"
-airports <- read.csv(paste(path_data_folder , "/data/airports.csv",sep="")) 
-airport_frequencies <- read.csv(paste(path_data_folder , "/data/airport-frequencies.csv",sep="")) runways <- read.csv(paste(path_data_folder , "/data/runways.csv",sep="")) 
+airports <- read.csv(paste(path_data_folder , "/data/airports.csv",sep=""))
+
+airport_frequencies <- read.csv(paste(path_data_folder , "/data/airport-frequencies.csv",sep="")) 
+
+runways <- read.csv(paste(path_data_folder , "/data/runways.csv",sep="")) 
 
 ```
 
@@ -122,14 +125,24 @@ airport_frequencies%>%inner_join(airports,by=c("airport_ref"="id"))%>%select(air
 ####10.1) UNION ALL
 
 ```{r}
-airports_df1<-airports%>%filter(ident==c('KMAN','KLAX','KLGB'))
-airports_df2<-airports%>%filter(ident==c('KMAN','KLAX'))
+airports_df1<-airports%>%filter(ident==c('KLGB','KLAX'))
+
+```
+
+```{r}
+airports_df2<-airports%>%filter(ident==c('KLGB'))
+```
+
+```{r}
 airports_union_all<-bind_rows(airports_df1, airports_df2)
 ```
+
+
 ####10.2) UNION
 ```{r}
 airports_union<-airports_union_all[!duplicated(airports_union_all),]
 ```
+
 
 #11) EXCEPT
 
@@ -138,8 +151,11 @@ airports_union<-airports_union_all[!duplicated(airports_union_all),]
 airports_except<-airports_df1[!(airports_df1$id %in% airports_df2$id ), ]
 ```
 
-```{r}
-airports_df1$id %in% airports_df2$id
-```
+#12) OVER (PARTITION BY)
 
+####12.1)MAX LATITUDE VALUE BY TYPE OF AIRPORT
+
+```{r}
+airports%>%group_by(type)%>%summarise(max = max(latitude_deg,na.rm=TRUE))
+```
 
