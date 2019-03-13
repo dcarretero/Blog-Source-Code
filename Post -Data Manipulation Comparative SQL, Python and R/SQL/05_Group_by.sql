@@ -7,10 +7,3 @@ select iso_country, type, count(*) from airports group by iso_country, type orde
 select iso_country, type, count(*) from airports group by iso_country, TYPE 
 order by iso_country, COUNT(*);
 
---5.3) Group by more than one columm
-
-select iso_country, type, count(*) from airports group by iso_country, type order by iso_country, type
-
---5.4) Group by more than one columm and order by more than one column too
-
-select iso_country, type, count(*) from airports group by iso_country, type order by iso_country, count(*) desc

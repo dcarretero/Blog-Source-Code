@@ -1,4 +1,20 @@
---10.1) Union
+--10.1) Union all
+select
+	name,
+	municipality
+from
+	airports
+where
+	ident in ('KLAX','KLGB')
+union all select
+	name,
+	municipality
+from
+	airports
+where
+	ident = 'KLGB'
+
+--10.2) Union
 select
 	name,
 	municipality
@@ -16,18 +32,4 @@ where
 	ident = 'KLGB'
 
 	
---10.2) Union all
-select
-	name,
-	municipality
-from
-	airports
-where
-	ident in ('KLAX','KLGB')
-union all select
-	name,
-	municipality
-from
-	airports
-where
-	ident = 'KLGB'
+

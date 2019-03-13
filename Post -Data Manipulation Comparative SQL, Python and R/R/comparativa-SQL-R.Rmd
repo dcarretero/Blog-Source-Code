@@ -105,8 +105,8 @@ airports%>%group_by(iso_country)%>% summarise(number = n())%>%arrange(desc(numbe
 ```{r}
 airports%>%filter(iso_country=='US')%>%group_by(type)%>% summarise(number = n())%>%arrange(desc(number))%>%filter(number>1000)
 ```
-
-####8.2) Min, masx, mean and median
+# 8) MIN,MAX,MEAN AND MEDIAN
+####8.1) Min, max, mean and median
 ```{r}
 runways%>%summarise(max = max(length_ft,na.rm=TRUE),min=min(length_ft,na.rm=TRUE),mean=mean(length_ft,na.rm=TRUE),median=median(length_ft,na.rm=TRUE))
 ```
@@ -157,5 +157,9 @@ airports_except<-airports_df1[!(airports_df1$id %in% airports_df2$id ), ]
 
 ```{r}
 airports%>%group_by(type)%>%summarise(max = max(latitude_deg,na.rm=TRUE))
+
+```
+```{r}
+airports%>%group_by(type)%>%arrange(type)%>%mutate(lvar=lag(latitude_deg))%>%select(ident,type,latitude_deg,lvar)
 ```
 
